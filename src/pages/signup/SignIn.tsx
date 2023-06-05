@@ -11,8 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
-import { postAPI } from '../../util/axios';
+import { getAPI } from '../../util/axios';
 import { redirect, useNavigate, Link } from 'react-router-dom';
 import MD5 from 'crypto-js/md5';
 import { useAuth } from '../../util/auth';
@@ -23,14 +22,12 @@ const defaultTheme = createTheme();
 
 interface clickedStatus {
   name: boolean;
-  email: boolean;
   password: boolean;
 }
 
-export default function SignUp() {
+export default function SignIn() {
   const [clicked, setClicked] = React.useState<clickedStatus>({
     name: false,
-    email: false,
     password: false
   });
   const [err, setError] = React.useState('');
@@ -42,23 +39,12 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    if (
-      data.get('email') &&
-      data.get('email') &&
-      data.get('name') &&
-      data.get('password') &&
-      !clicked.email
-    ) {
+    if (data.get('name') && data.get('password')) {
       try {
-        await postAPI(
-          '/signup',
-          JSON.stringify({
-            name: data.get('name'),
-            email: data.get('email'),
-            key: data.get('password'),
-            secret: 'MySecret'
-          })
-        )
+        await getAPI('/myself', {
+          sign: MD5('GET/myselfMySecret').toString(),
+          key: data.get('password')
+        })
           .then((res) => {
             console.log('response   ', res);
             if (res && res.status === 200) {
@@ -84,12 +70,6 @@ export default function SignUp() {
     } else {
       setClicked({
         name: !data.get('name'),
-        email:
-          data.get('email') &&
-          data.get('email')?.toString().includes('@') &&
-          data.get('email')?.toString().includes('.')
-            ? false
-            : true,
         password: !data.get('password')
       });
     }
@@ -142,23 +122,6 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                  autoComplete='email'
-                  error={clicked.email}
-                  onChange={(e) =>
-                    e.target.value?.includes('@') &&
-                    e.target.value?.includes('.')
-                      ? setClicked({ ...clicked, email: !e.target.value })
-                      : setClicked({ ...clicked, email: true })
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
                   name='password'
                   label='Password'
                   type='password'
@@ -192,7 +155,7 @@ export default function SignUp() {
             )}
             <Grid container justifyContent='flex-end'>
               <Grid item>
-                <Link to='/signin'>Already have an account? Sign in</Link>
+                <Link to={'/signup'}>Don't you have account? Sign up</Link>
               </Grid>
             </Grid>
           </Box>

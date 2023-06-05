@@ -4,6 +4,8 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/error/RouterError';
 import SignUp from './pages/signup/SignUp';
+import { AuthProvider } from './util/auth';
+import SignIn from './pages/signup/SignIn';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,19 +13,25 @@ const root = ReactDOM.createRoot(
 
 const router = createBrowserRouter([
   {
-    path:'/',
-    element:<App/>,
-    errorElement:<ErrorPage/>,
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />
   },
   {
-    path:'signup',
-    element:<SignUp/>
+    path: 'signup',
+    element: <SignUp />
+  },
+  {
+    path: 'signin',
+    element: <SignIn />
   }
-])
+]);
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
 
