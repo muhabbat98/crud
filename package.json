@@ -1,5 +1,6 @@
 {
   "name": "my-app",
+  "homepage": "https://github.com/muhabbat98.io/crud",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,6 +18,7 @@
     "axios": "^1.4.0",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
+    "gh-pages": "^5.0.0",
     "js": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,8 +32,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
