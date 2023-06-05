@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Books from './pages/main/Books';
 import Container from '@mui/material/Container/Container';
 import { useAuth } from './util/auth';
 import { useNavigate } from 'react-router-dom';
+import UserBooks from './pages/main/UserBooks';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -59,7 +59,7 @@ export default function App() {
           >
             <Tab label='Home' {...a11yProps(0)} />
             <Tab label={user?.sign ? 'SignOut' : 'SignUp'} {...a11yProps(1)} />
-            <Tab label='Item Three' {...a11yProps(2)} />
+            <Tab label='My shelf' {...a11yProps(2)} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -69,7 +69,7 @@ export default function App() {
           Item Two
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          <UserBooks/>
         </TabPanel>
       </Box>
     </Container>

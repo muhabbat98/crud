@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { getBooks } from '../../util/mockData';
-import { useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import BooksItem from './BooksItem';
+import { useBook } from '../../util/books';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -28,8 +28,8 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ p: 3 }} >
+          {children}
         </Box>
       )}
     </div>
@@ -42,14 +42,29 @@ function a11yProps(index: number) {
     'aria-controls': `vertical-tabpanel-${index}`
   };
 }
-
+interface BookInterface {
+  id: number;
+  isbn: string;
+  title: string;
+  cover: string;
+  author: string;
+  published: number;
+  pages: number;
+}
+interface BookProps{
+  book:BookInterface,
+  status:number
+}
 export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-  console.log(getBooks.data);
+  const [book] = useBook(false)
+  const [newBook, setNewBook] = React.useState<BookProps[]>(getBooks.data||[])
+  React.useEffect(()=>{
+    setNewBook(getBooks.data.map((e:any)=>book.length&&book.find((b:any)=>b.book.id===e.book.id)||{...e, status:0}))
+  },[getBooks, book])
   return (
     <Box
       sx={{
@@ -67,32 +82,16 @@ export default function VerticalTabs() {
         aria-label='Vertical tabs example'
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
-        {getBooks.data.map((u, i) => (
-          <Tab label={MediaControlCard(u.book)} {...a11yProps(i)} />
+        {newBook.map((u, i) => (
+          <Tab key={i} label={MediaControlCard(u.book)} {...a11yProps(i)} />
         ))}
       </Tabs>
-      {getBooks.data.map((u, i) => (
+      {newBook.map((u, i) => (
         <TabPanel key={i} value={value} index={i}>
-          <BooksItem {...u.book} />
+          <BooksItem {...u} />
         </TabPanel>
       ))}
 
-      <TabPanel value={value} index={1}></TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
     </Box>
   );
 }
@@ -107,10 +106,8 @@ interface BookInterface {
   pages: number;
 }
 function MediaControlCard(u: BookInterface) {
-  const theme = useTheme();
-
   return (
-    <Card sx={{ display: 'flex' }}>
+    <Card key={u.id} sx={{ display: 'flex' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component='div' variant='h5'>

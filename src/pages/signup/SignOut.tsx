@@ -6,13 +6,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useAuth } from '../../util/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function AlertDialog() {
   const [open, setOpen] = React.useState(true);
   const [setAuth] = useAuth(true);
-
+  const navigate = useNavigate()
   const handleClose = () => {
     setOpen(false);
+    navigate('/')
   };
   const handleLogOut = () => {
     localStorage.removeItem('sign');

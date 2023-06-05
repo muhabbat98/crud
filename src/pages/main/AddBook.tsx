@@ -4,23 +4,12 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Container from '@mui/material/Container/Container';
 import Grid from '@mui/material/Grid';
-import { getAPI } from '../../util/axios';
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
+
+
 
 export default function Books() {
-  React.useEffect(() => {
-    (async () => {
-      // const books = await getAPI('/books');
-      // console.log(books);
-    })();
-  }, []);
+ 
 
   return (
     <Container maxWidth='sm'>
@@ -45,25 +34,6 @@ export default function Books() {
   );
 }
 
-{
-  /* <ImageList >
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-          <img
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={item.title}
-            subtitle={<span>by: {item.author}</span>}
-            position="below"
-          />
-        </ImageListItem>
-      ))}
-    </ImageList> */
-}
 
 const itemData = [
   {

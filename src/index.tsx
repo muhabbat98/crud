@@ -6,6 +6,7 @@ import ErrorPage from './pages/error/RouterError';
 import SignUp from './pages/signup/SignUp';
 import { AuthProvider } from './util/auth';
 import SignIn from './pages/signup/SignIn';
+import { BookProvider } from './util/books';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -30,7 +31,9 @@ const router = createBrowserRouter([
 root.render(
   <React.StrictMode>
     <AuthProvider>
+      <BookProvider>
       <RouterProvider router={router} />
+      </BookProvider>
     </AuthProvider>
   </React.StrictMode>
 );
