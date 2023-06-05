@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/crud/static/js/main.c44f96fe.js",
+    "index.html": "/crud/index.html",
+    "main.c44f96fe.js.map": "/crud/static/js/main.c44f96fe.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c44f96fe.js"
+  ]
+}
