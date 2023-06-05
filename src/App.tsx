@@ -16,7 +16,7 @@ interface TabPanelProps {
 export default function App() {
   const navigate = useNavigate();
   const [value, setValue] = React.useState(0);
-  const [user, setUser] = useAuth(false);
+  const [user] = useAuth(false);
 
   function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;

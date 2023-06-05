@@ -16,7 +16,6 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useBook } from '../../util/books';
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
@@ -43,7 +42,7 @@ export default function UserBooks() {
 
   const handleRead = (isbn: string) => {
    
-    if(book?.status==0){
+    if(book?.status===0){
       localStorage.setItem('book', JSON.stringify([...book,{...book, status:1}]))
       setBook( [...book,{...book, status:1}])
     }else{

@@ -6,15 +6,11 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useBook } from '../../util/books';
 import { getBooks } from '../../util/mockData';
 
@@ -55,14 +51,14 @@ export default function BooksItem(data: BookProps) {
   };
   const handleRead = (isbn: string) => {
     
-    if(data.status==0){
+    if(data.status===0){
       localStorage.setItem('book', JSON.stringify([...book,{...data, status:1}]))
       setBook( [...book,{...data, status:1}])
-      getBooks.data = getBooks.data.map((u:any)=>u.book.id==data.book.id?({...u, status:1}):u)
-    }else if (data.status==1){
+      getBooks.data = getBooks.data.map((u:any)=>u.book.id===data.book.id?({...u, status:1}):u)
+    }else if (data.status===1){
       localStorage.setItem('book',  JSON.stringify(book.filter((u:any)=>u.book.isbn!==isbn)))
       setBook( book.filter((u:any)=>u.book.isbn!==isbn))
-      getBooks.data = getBooks.data.map((u:any)=>u.book.id==data.book.id?({...u, status:0}):u)
+      getBooks.data = getBooks.data.map((u:any)=>u.book.id===data.book.id?({...u, status:0}):u)
     }
 
   };

@@ -63,8 +63,8 @@ export default function VerticalTabs() {
   const [book] = useBook(false)
   const [newBook, setNewBook] = React.useState<BookProps[]>(getBooks.data||[])
   React.useEffect(()=>{
-    setNewBook(getBooks.data.map((e:any)=>book.length&&book.find((b:any)=>b.book.id===e.book.id)||{...e, status:0}))
-  },[getBooks, book])
+    setNewBook(getBooks.data.map((e:any)=>(book.length&&book.find((b:any)=>b.book.id===e.book.id))||{...e, status:0}))
+  },[ book])
   return (
     <Box
       sx={{
